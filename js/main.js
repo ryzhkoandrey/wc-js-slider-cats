@@ -5,9 +5,7 @@ const sliderItems = Array.from(slider.children);
 sliderItems.forEach(function (slide, index) {
 
     // Скрываем все слайды, кроме первого
-    if (index !== 0) {
-        slide.classList.add('hidden');
-    }
+    if (index !== 0) slide.classList.add('hidden');
 
     // Добавляем индексы
     slide.dataset.index = index;
@@ -18,9 +16,7 @@ sliderItems.forEach(function (slide, index) {
         this.classList.add('hidden');
 
         // Рассчитываем индекс следующего слайда
-
-
-        // const nextSlideIndex = +slide.dataset.index + 1;
+        let nextSlideIndex = index + 1 === sliderItems.length ? 0 : index + 1;
 
         // Находим следующий слайд
         const nextSlide = slider.querySelector(`[data-index="${nextSlideIndex}"]`);
