@@ -17,47 +17,34 @@ sliderItems.forEach(function (slide, index) {
 
     // Клик по слайдам
     slide.addEventListener('click', function () {
-        // Скрываем текущий слайд
-        slide.classList.add('hidden');
-        slide.removeAttribute('data-active');
-
-        // Рассчитываем индекс следующего слайда
-        const nextSlideIndex = index + 1 === sliderItems.length ? 0 : index + 1;
-
-        // Находим следующий слайд
-        const nextSlide = slider.querySelector(`[data-index="${nextSlideIndex}"]`);
-
-        // Отображаем следующий слайд
-        nextSlide.classList.remove('hidden');
-        nextSlide.setAttribute('data-active', '');
+        showNextSlide('next');
     });
 });
 
 btnNext.onclick = function () {
-    // Скрываем текущий слайд
-    const currentSlide = slider.querySelector('[data-active]');
-    const currentSlideIndex = +currentSlide.dataset.index;
-
-    currentSlide.classList.add('hidden');
-    currentSlide.removeAttribute('data-active');
-
-    // Показываем следующий слайд
-    const nextSlideIndex = currentSlideIndex + 1 === sliderItems.length ? 0 : currentSlideIndex + 1;
-    const nextSlide = slider.querySelector(`[data-index="${nextSlideIndex}"]`);
-    nextSlide.classList.remove('hidden');
-    nextSlide.setAttribute('data-active', '');
+    showNextSlide('next');
 }
 
 btnPrev.onclick = function () {
+    showNextSlide('prev');
+}
+
+function showNextSlide(direction) {
     // Скрываем текущий слайд
     const currentSlide = slider.querySelector('[data-active]');
     const currentSlideIndex = +currentSlide.dataset.index;
-
     currentSlide.classList.add('hidden');
     currentSlide.removeAttribute('data-active');
 
+    // Рассчитываем следующий индекс в зависимости от направления движения
+    let nextSlideIndex;
+    if (direction === 'next') {
+        nextSlideIndex = currentSlideIndex + 1 === sliderItems.length ? 0 : currentSlideIndex + 1;
+    } else if (direction === 'prev') {
+        nextSlideIndex = currentSlideIndex === 0 ? sliderItems.length - 1 : currentSlideIndex - 1;
+    }
+
     // Показываем следующий слайд
-    const nextSlideIndex = currentSlideIndex === 0 ? sliderItems.length - 1 : currentSlideIndex - 1;
     const nextSlide = slider.querySelector(`[data-index="${nextSlideIndex}"]`);
     nextSlide.classList.remove('hidden');
     nextSlide.setAttribute('data-active', '');
