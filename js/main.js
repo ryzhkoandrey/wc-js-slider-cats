@@ -30,6 +30,7 @@ btnPrev.onclick = function () {
 }
 
 function showNextSlide(direction) {
+
     // Скрываем текущий слайд
     const currentSlide = slider.querySelector('[data-active]');
     const currentSlideIndex = +currentSlide.dataset.index;
